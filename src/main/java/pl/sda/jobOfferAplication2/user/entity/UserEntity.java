@@ -21,8 +21,7 @@ public class UserEntity {
     private LocalDate creationDate;
     private String password;
 
-    public UserEntity(Long id, String name, String login, LocalDate creationDate, String password) {
-        this.id = id;
+    public UserEntity(String name, String login, LocalDate creationDate, String password) {
         this.name = name;
         this.login = login;
         this.creationDate = creationDate;
