@@ -42,7 +42,14 @@ public class UserController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .build();
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUserById(@PathVariable(value = "id") Long id) throws UserException {
+        userService.deleteUserById(id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .build();
     }
 
 }
