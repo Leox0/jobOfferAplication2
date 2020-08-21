@@ -35,7 +35,7 @@ public class UserController {
     public ResponseEntity<Void> postUser(@RequestBody UserInput userInput){
         System.out.println(userInput);
         return ResponseEntity
-                .status(HttpStatus.OK)
+                .status(HttpStatus.CREATED)
                 .build();
 
     }
