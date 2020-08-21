@@ -6,5 +6,5 @@ import pl.sda.jobOfferAplication2.user.entity.UserEntity;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
-
+    boolean existsUserEntityByLogin(String login);
 }

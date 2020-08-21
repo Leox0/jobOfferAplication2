@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> postUser(@RequestBody UserInput userInput){
+    public ResponseEntity<Void> postUser(@RequestBody UserInput userInput) throws UserException {
         userService.createUser(userInput);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
