@@ -10,10 +10,8 @@ import pl.sda.jobOfferAplication2.user.exception.UserException;
 import pl.sda.jobOfferAplication2.user.model.UserInput;
 import pl.sda.jobOfferAplication2.user.repository.UserRepository;
 
-
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static pl.sda.jobOfferAplication2.user.service.UserServiceImpl.*;
 
@@ -102,7 +100,7 @@ public class UserServiceCreateUserTest {
 
         //then
         assertTrue(userRepository.findAll().isEmpty());
-        UserException userException = assertThrows(UserException.class,executable);
+        UserException userException = assertThrows(UserException.class, executable);
         assertEquals(USER_LOGIN_IS_TOO_SHORT, userException.getMessage());
     }
 
@@ -116,7 +114,7 @@ public class UserServiceCreateUserTest {
 
         //then
         assertTrue(userRepository.findAll().isEmpty());
-        UserException userException = assertThrows(UserException.class,executable);
+        UserException userException = assertThrows(UserException.class, executable);
         assertEquals(USER_PASSWORD_IS_INCORRECT, userException.getMessage());
     }
 
