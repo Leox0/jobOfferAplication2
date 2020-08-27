@@ -9,8 +9,6 @@ import pl.sda.jobOfferAplication2.user.model.UserInput;
 import pl.sda.jobOfferAplication2.user.model.UserOutput;
 import pl.sda.jobOfferAplication2.user.service.UserService;
 
-import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
