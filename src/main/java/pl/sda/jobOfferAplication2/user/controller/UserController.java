@@ -12,6 +12,7 @@ import pl.sda.jobOfferAplication2.user.service.UserService;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/users")
 public class UserController {
 
