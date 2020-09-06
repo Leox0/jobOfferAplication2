@@ -13,8 +13,9 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/users")
+@RequestMapping(UserController.USERS_MAPPING)
 public class UserController {
+    public static final String USERS_MAPPING = "/users";
 
     @Autowired
     private UserService userService;
