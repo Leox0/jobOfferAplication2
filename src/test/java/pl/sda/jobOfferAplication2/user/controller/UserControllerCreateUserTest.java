@@ -89,19 +89,48 @@ public class UserControllerCreateUserTest {
 
         //then
         resultActions.andExpect(status().isNotFound());
-    }
-
-//jak sprawdzić komunikat wyrzucany w body
-
-    @Test
-    public void shouldGiveStatusNotFoundWhenCreateUserWithIncorrectLogin() {
-        //to implement
+        String contentAsString = resultActions.andReturn().getResponse().getContentAsString();
+        assertEquals(USER_FOR_GIVEN_LOGIN_IS_EXIST, contentAsString);
     }
 
     @Test
-    public void shouldGiveStatusNotFoundWhenCreateUserWithIncorrectPassword() {
-        //to implement
+    public void shouldGiveStatusNotFoundWhenCreateUserWithIncorrectLogin() throws Exception {
+        //given
+        final String USER_PATH = USERS_MAPPING;
 
+        UserInput userInput1 = new UserInput("Marek", "Mar", "Marek123@@");
+        final MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post(USER_PATH)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(toJson(userInput1));
+
+        //when
+        ResultActions resultActions = mockMvc.perform(requestBuilder);
+
+        //then
+        resultActions.andExpect(status().isNotFound());
+        String contentAsString = resultActions.andReturn().getResponse().getContentAsString();
+        assertEquals(USER_LOGIN_IS_TOO_SHORT, contentAsString);
+    }
+
+    @Test
+    public void shouldGiveStatusNotFoundWhenCreateUserWithIncorrectPassword() throws Exception {
+        //given
+        final String USER_PATH = USERS_MAPPING;
+
+        UserInput userInput1 = new UserInput("Marek", "Marek1234", "Marek123");
+        final MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post(USER_PATH)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(toJson(userInput1));
+
+        //when
+        ResultActions resultActions = mockMvc.perform(requestBuilder);
+
+        //then
+        resultActions.andExpect(status().isNotFound());
+        String contentAsString = resultActions.andReturn().getResponse().getContentAsString();
+        assertEquals(USER_PASSWORD_IS_INCORRECT, contentAsString);
     }
 
 

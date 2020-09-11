@@ -27,8 +27,8 @@ public class UserServiceImpl implements UserService {
             "    Must have at least one special symbol among @#$%\n" +
             "    Password length should be between 8 and 20";
     public static final int CORRECT_LENGHT_USER_LOGIN = 6;
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     //można też @Autowire zamiast tworzenia w konstruktorze
     //@Autowire przed konstruktorem można ale jest to nadmiarowe
