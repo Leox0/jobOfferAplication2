@@ -1,7 +1,5 @@
 package pl.sda.jobOfferAplication2.user.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +10,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import pl.sda.jobOfferAplication2.user.entity.UserEntity;
-import pl.sda.jobOfferAplication2.user.exception.UserException;
 import pl.sda.jobOfferAplication2.user.model.UserInput;
 import pl.sda.jobOfferAplication2.user.model.UserOutput;
 import pl.sda.jobOfferAplication2.user.repository.UserRepository;
 import pl.sda.jobOfferAplication2.user.service.UserService;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -90,7 +83,7 @@ public class UserControllerFindUserTest {
     }
 
     @Test
-    public void shouldThrowExceptionWhenGetUserByIdWhoDoesntExist() throws Exception {
+    public void shouldGiveStatusNotFoundWhenGetUserByIdWhoDoesntExist() throws Exception {
         //given
         Long userId = 5L;
         final String USER_PATH = USERS_MAPPING + "/" + userId;
@@ -104,13 +97,5 @@ public class UserControllerFindUserTest {
         resultActions.andExpect(status().isNotFound());
         String contentAsString = resultActions.andReturn().getResponse().getContentAsString();
         assertEquals(NO_USER_FOUND_FOR_GIVEN_ID, contentAsString);
-    }
-
-    private static String toJson(final Object object) {
-        try {
-            return new ObjectMapper().writeValueAsString(object);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
