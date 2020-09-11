@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Table(name = "USERS2")
+@Table(name = "USERS")
 public class UserEntity {
 
     @Id
