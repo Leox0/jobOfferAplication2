@@ -2,12 +2,14 @@ package pl.sda.jobOfferAplication2.jobOffer.entity;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.Getter;
 import pl.sda.jobOfferAplication2.jobOffer.model.JobOfferCategory;
+import pl.sda.jobOfferAplication2.user.entity.UserEntity;
 
 import javax.persistence.*;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Table(name = "JOB_OFFERS")
 public class JobOfferEntity {
 
@@ -25,5 +27,4 @@ public class JobOfferEntity {
         this.startDate = startDate;
         this.endDate = endDate;
     }
-
 }

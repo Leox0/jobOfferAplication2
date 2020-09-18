@@ -2,13 +2,16 @@ package pl.sda.jobOfferAplication2.user.entity;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import pl.sda.jobOfferAplication2.jobOffer.entity.JobOfferEntity;
 import pl.sda.jobOfferAplication2.user.model.UserOutput;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Table(name = "USERS")
 public class UserEntity {
 
@@ -20,6 +23,10 @@ public class UserEntity {
     private String login;
     private LocalDate creationDate;
     private String password;
+    @OneToMany(
+            cascade = CascadeType.ALL)
+    @JoinColumn(name = "UserFid", referencedColumnName = "id")
+    public List<JobOfferEntity> jobOffers = new ArrayList<>();
 
     public UserEntity(String name, String login, LocalDate creationDate, String password) {
         this.name = name;
@@ -28,7 +35,15 @@ public class UserEntity {
         this.password = password;
     }
 
-    public UserOutput toOutput(){
+    public void addJobOffer(JobOfferEntity jobOffer) {
+        jobOffers.add(jobOffer);
+    }
+
+    public void removeJobOffer(JobOfferEntity jobOffer) {
+        jobOffers.remove(jobOffer);
+    }
+
+    public UserOutput toOutput() {
         return new UserOutput(id, name, login, creationDate);
     }
 
