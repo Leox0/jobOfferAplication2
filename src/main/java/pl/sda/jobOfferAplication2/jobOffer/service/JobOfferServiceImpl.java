@@ -2,17 +2,23 @@ package pl.sda.jobOfferAplication2.jobOffer.service;
 
 import org.springframework.stereotype.Service;
 import pl.sda.jobOfferAplication2.jobOffer.entity.JobOfferEntity;
+import pl.sda.jobOfferAplication2.jobOffer.exception.JobOfferException;
+import pl.sda.jobOfferAplication2.jobOffer.model.JobOfferInput;
+import pl.sda.jobOfferAplication2.jobOffer.model.JobOfferOutput;
 import pl.sda.jobOfferAplication2.jobOffer.repository.JobOfferRepository;
+import pl.sda.jobOfferAplication2.user.entity.UserEntity;
 import pl.sda.jobOfferAplication2.user.exception.UserException;
 import pl.sda.jobOfferAplication2.user.repository.UserRepository;
 import pl.sda.jobOfferAplication2.user.service.UserService;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-public class JobOfferServiceImpl implements JobOfferService{
+public class JobOfferServiceImpl implements JobOfferService {
 
+    public static final String NO_JOB_OFFER_FOUND_FOR_GIVEN_ID = "No job offer found for given id";
     private final JobOfferRepository jobOfferRepository;
     private final UserRepository userRepository;
     private final UserService userService;
@@ -23,14 +29,57 @@ public class JobOfferServiceImpl implements JobOfferService{
         this.userService = userService;
     }
 
+
     @Override
-    public void addOfferToUser(Long userId, Long jobOfferId) throws UserException {
-        JobOfferEntity jobOfferEntity = jobOfferRepository.findById(jobOfferId).get();
-        userRepository.findById(userId).get().addJobOffer(jobOfferEntity);
-        List<JobOfferEntity> list;
-        list = userRepository.findById(userId).get().jobOffers;
-        for(int i=0;i<list.size();i++){
-            System.out.println(list.get(i));
+    public List<JobOfferOutput> getAllJobOffer() {
+        return jobOfferRepository.findAll()
+                .stream()
+                .map(JobOfferEntity::toOutput)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public JobOfferOutput getJobOfferById(Long id) throws JobOfferException {
+        Optional<JobOfferEntity> optionalJobOfferEntity = getJobOfferEntity(id);
+        return optionalJobOfferEntity.get().toOutput();
+    }
+
+    private Optional<JobOfferEntity> getJobOfferEntity(Long id) throws JobOfferException {
+        Optional<JobOfferEntity> optionalJobOfferEntity = jobOfferRepository.findById(id);
+        if (!optionalJobOfferEntity.isPresent()) {
+            throw new JobOfferException(NO_JOB_OFFER_FOUND_FOR_GIVEN_ID);
         }
+        return optionalJobOfferEntity;
+    }
+
+    @Override
+    public void createJobOffer(JobOfferInput jobOfferInput) {
+        JobOfferEntity jobOfferEntity = new JobOfferEntity(
+                jobOfferInput.getName(),
+                jobOfferInput.getCategory(),
+                jobOfferInput.getStartDate(),
+                jobOfferInput.getEndDate());
+        jobOfferRepository.save(jobOfferEntity);
+    }
+
+    @Override
+    public void deleteJobOfferById(Long id) throws JobOfferException {
+        getJobOfferEntity(id);
+        jobOfferRepository.deleteById(id);
+    }
+
+    @Override
+    public void addUserToJobOffer(Long userId, Long jobOfferId) {
+        UserEntity userEntity = userRepository.findById(userId).get();
+        JobOfferEntity jobOfferEntity = jobOfferRepository.findById(jobOfferId).get();
+        jobOfferEntity.setUserEntity(userEntity);
+        jobOfferRepository.save(jobOfferEntity);
+    }
+
+    @Override
+    public void deleteUserFromJobOffer(Long jobOfferId) {
+        JobOfferEntity jobOfferEntity = jobOfferRepository.findById(jobOfferId).get();
+        jobOfferEntity.setUserEntity(null);
+        jobOfferRepository.save(jobOfferEntity);
     }
 }

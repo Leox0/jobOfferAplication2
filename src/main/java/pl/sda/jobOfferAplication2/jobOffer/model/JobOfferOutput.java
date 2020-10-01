@@ -10,6 +10,8 @@ import pl.sda.jobOfferAplication2.user.model.UserOutput;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public class JobOfferOutput {
+
+    private String name;
     private String category;
     private String startDate;
     private String endDate;

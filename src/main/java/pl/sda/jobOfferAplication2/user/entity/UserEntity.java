@@ -23,24 +23,14 @@ public class UserEntity {
     private String login;
     private LocalDate creationDate;
     private String password;
-    @OneToMany(
-            cascade = CascadeType.ALL)
-    @JoinColumn(name = "UserFid", referencedColumnName = "id")
-    public List<JobOfferEntity> jobOffers = new ArrayList<>();
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
+    private List<JobOfferEntity> jobOffers;
 
     public UserEntity(String name, String login, LocalDate creationDate, String password) {
         this.name = name;
         this.login = login;
         this.creationDate = creationDate;
         this.password = password;
-    }
-
-    public void addJobOffer(JobOfferEntity jobOffer) {
-        jobOffers.add(jobOffer);
-    }
-
-    public void removeJobOffer(JobOfferEntity jobOffer) {
-        jobOffers.remove(jobOffer);
     }
 
     public UserOutput toOutput() {
