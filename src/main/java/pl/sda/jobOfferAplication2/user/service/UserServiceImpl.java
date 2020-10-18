@@ -31,8 +31,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    //można też @Autowire zamiast tworzenia w konstruktorze
-    //@Autowire przed konstruktorem można ale jest to nadmiarowe
     public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
