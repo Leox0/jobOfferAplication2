@@ -9,10 +9,16 @@ import pl.sda.jobOfferAplication2.user.exception.UserException;
 import java.util.List;
 
 public interface JobOfferService {
+
     List<JobOfferOutput> getAllJobOffer();
+
     JobOfferOutput getJobOfferById(Long id) throws JobOfferException;
+
     void createJobOffer(JobOfferInput jobOfferInput);
+
     void deleteJobOfferById(Long id) throws JobOfferException;
+
     void addUserToJobOffer(Long userId, Long jobOfferId);
+
     void deleteUserFromJobOffer(Long jobOfferId);
 }

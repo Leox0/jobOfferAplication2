@@ -12,8 +12,10 @@ import java.time.LocalDate;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public class UserOutput {
+
     private Long uuid;
     private String name;
     private String login;
     private LocalDate creationDate;
+
 }

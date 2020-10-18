@@ -99,4 +99,5 @@ public class UserServiceImpl implements UserService {
         getOptionalUserEntityById(id);
         userRepository.deleteById(id);
     }
+
 }

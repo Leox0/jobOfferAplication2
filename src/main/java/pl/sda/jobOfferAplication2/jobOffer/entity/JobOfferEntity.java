@@ -33,11 +33,12 @@ public class JobOfferEntity {
         this.endDate = endDate;
     }
 
-    public void setUserEntity(UserEntity userEntity){
+    public void setUserEntity(UserEntity userEntity) {
         this.userEntity = userEntity;
     }
 
-    public JobOfferOutput toOutput(){
+    public JobOfferOutput toOutput() {
         return new JobOfferOutput(name, category.toString(), startDate, endDate, userEntity.toOutput());
     }
+
 }

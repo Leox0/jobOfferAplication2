@@ -15,6 +15,7 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping(UserController.USERS_MAPPING)
 public class UserController {
+
     public static final String USERS_MAPPING = "/users";
 
     @Autowired

@@ -29,7 +29,6 @@ public class JobOfferServiceImpl implements JobOfferService {
         this.userService = userService;
     }
 
-
     @Override
     public List<JobOfferOutput> getAllJobOffer() {
         return jobOfferRepository.findAll()
@@ -82,4 +81,5 @@ public class JobOfferServiceImpl implements JobOfferService {
         jobOfferEntity.setUserEntity(null);
         jobOfferRepository.save(jobOfferEntity);
     }
+
 }

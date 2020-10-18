@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Getter
 @ToString
 public class UserInput {
+
     private String name;
     private String login;
     @JsonIgnore
@@ -20,4 +21,5 @@ public class UserInput {
         this.login = login;
         this.password = password;
     }
+
 }

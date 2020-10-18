@@ -9,7 +9,6 @@ import pl.sda.jobOfferAplication2.jobOffer.model.JobOfferInput;
 import pl.sda.jobOfferAplication2.jobOffer.model.JobOfferOutput;
 import pl.sda.jobOfferAplication2.jobOffer.repository.JobOfferRepository;
 import pl.sda.jobOfferAplication2.jobOffer.service.JobOfferService;
-import pl.sda.jobOfferAplication2.user.exception.UserException;
 import pl.sda.jobOfferAplication2.user.model.UserOutput;
 import pl.sda.jobOfferAplication2.user.service.UserService;
 
@@ -19,8 +18,8 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping(JobOfferController.JOB_OFFER_MAPPING)
 public class JobOfferController {
-    public static final String JOB_OFFER_MAPPING = "/jobOffer";
 
+    public static final String JOB_OFFER_MAPPING = "/jobOffer";
     private final JobOfferService jobOfferService;
     private final JobOfferRepository jobOfferRepository;
 
@@ -30,7 +29,7 @@ public class JobOfferController {
     }
 
     @GetMapping
-    public ResponseEntity<List<JobOfferOutput>> getAllJobOffer(){
+    public ResponseEntity<List<JobOfferOutput>> getAllJobOffer() {
         List<JobOfferOutput> allJobOffer = jobOfferService.getAllJobOffer();
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -62,8 +61,8 @@ public class JobOfferController {
     }
 
     @GetMapping("/addUser/{id}")
-    public ResponseEntity<Void> addUserToJobOffer(@PathVariable(value = "id") Long jobOfferId, @RequestParam Long userId)  {
-        jobOfferService.addUserToJobOffer(userId,jobOfferId);
+    public ResponseEntity<Void> addUserToJobOffer(@PathVariable(value = "id") Long jobOfferId, @RequestParam Long userId) {
+        jobOfferService.addUserToJobOffer(userId, jobOfferId);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .build();
@@ -80,7 +79,6 @@ public class JobOfferController {
     @GetMapping("/getUser/{id}")
     public ResponseEntity<UserOutput> getUserForJobOffer(@PathVariable(value = "id") Long jobOfferId) {
         JobOfferEntity jobOfferEntity = jobOfferRepository.findById(jobOfferId).get();
-
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(jobOfferEntity.getUserEntity().toOutput());
