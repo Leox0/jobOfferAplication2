@@ -1,16 +1,17 @@
 package pl.sda.jobOfferAplication2.user.entity;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import pl.sda.jobOfferAplication2.jobOffer.entity.JobOfferEntity;
 import pl.sda.jobOfferAplication2.user.model.UserOutput;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Builder
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Table(name = "USERS")
 public class UserEntity {

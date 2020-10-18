@@ -1,12 +1,10 @@
 package pl.sda.jobOfferAplication2.jobOffer.controller;
 
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.sda.jobOfferAplication2.jobOffer.entity.JobOfferEntity;
 import pl.sda.jobOfferAplication2.jobOffer.exception.JobOfferException;
-import pl.sda.jobOfferAplication2.jobOffer.model.JobOfferCategory;
 import pl.sda.jobOfferAplication2.jobOffer.model.JobOfferInput;
 import pl.sda.jobOfferAplication2.jobOffer.model.JobOfferOutput;
 import pl.sda.jobOfferAplication2.jobOffer.repository.JobOfferRepository;
@@ -25,12 +23,10 @@ public class JobOfferController {
 
     private final JobOfferService jobOfferService;
     private final JobOfferRepository jobOfferRepository;
-    private final UserService userService;
 
     public JobOfferController(JobOfferService jobOfferService, JobOfferRepository jobOfferRepository, UserService userService) {
         this.jobOfferService = jobOfferService;
         this.jobOfferRepository = jobOfferRepository;
-        this.userService = userService;
     }
 
     @GetMapping
@@ -81,9 +77,9 @@ public class JobOfferController {
                 .build();
     }
 
-    @GetMapping("/getUser")
-    public ResponseEntity<UserOutput> getUserForJb() throws UserException {
-        JobOfferEntity jobOfferEntity = jobOfferRepository.findById(1L).get();
+    @GetMapping("/getUser/{id}")
+    public ResponseEntity<UserOutput> getUserForJobOffer(@PathVariable(value = "id") Long jobOfferId) {
+        JobOfferEntity jobOfferEntity = jobOfferRepository.findById(jobOfferId).get();
 
         return ResponseEntity
                 .status(HttpStatus.OK)

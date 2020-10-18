@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
             "    Must have at least one special symbol among @#$%\n" +
             "    Password length should be between 8 and 20";
     public static final int CORRECT_LENGHT_USER_LOGIN = 6;
+    public static final String CORRECT_PASSWORD_PATTERN = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20}$";
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -85,7 +86,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean validateUserPassword(String password) {
-        String regex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20}$";
+        String regex = CORRECT_PASSWORD_PATTERN;
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
